@@ -1,9 +1,10 @@
 package Tasks;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
-
     public static void main(String[] args) {
-
         Task myTask = new Task("Реализовать программу");
         SubTask s1 = new SubTask("Посадить дерево");
         SubTask s2 = new SubTask("Протестировать выполнение");
@@ -20,6 +21,13 @@ public class Main {
             System.out.println("Успешно " + myTask);
         }
 
+        Task duplicateTask = new Task("Реализовать программу");
+        List<Task> taskList = Arrays.asList(myTask, duplicateTask, new Task("Другая задача"));
 
+        System.out.println("\n====Демонстрация====");
+        Utils.checkUniqueness(taskList);
+
+        System.out.println("\n====Вывод диаграммы====");
+        Utils.printTaskTree(myTask);
     }
 }

@@ -1,9 +1,9 @@
 package Tasks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 enum Status { NEW, IN_PROGRESS, DONE }
-
 
 class Task extends Base {
     private final List<SubTask> subTasks = new ArrayList<>();
@@ -16,8 +16,8 @@ class Task extends Base {
     @Override
     public String toString() {
         return "Основная задача: " + title + "\n" +
-                "Статус: " + status + "\n" +
-                "Дочерних задач: " + subTasks.size();
+               "Статус: " + status + "\n" +
+               "Дочерних задач: " + subTasks.size();
     }
 
     public void addSubTask(SubTask sub) {
@@ -45,5 +45,9 @@ class Task extends Base {
             this.status = Status.IN_PROGRESS;
             return false;
         }
+    }
+
+    public List<SubTask> getSubTasks() {
+        return new ArrayList<>(subTasks);
     }
 }
