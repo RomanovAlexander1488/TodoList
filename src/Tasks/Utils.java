@@ -19,13 +19,27 @@ public class Utils {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void printTaskTree(Task task) {
+    public static void printTaskTree( Task task) {
         System.out.println(task.toString());
 
         task.getSubTasks().stream()
-                .sorted((s1, s2) -> s1.getTitle().compareTo(s2.getTitle()))
+                .sorted((s1, s2) -> Boolean.compare(s1.isCompleted(), s2.isCompleted()))
                 .forEach(System.out::println);
 
         System.out.println("\n");
     }
+
+    public static void completingTheTask(Task task, boolean toArchive) {
+
+        task.getSubTasks().forEach(s -> s.setCompleted(true));
+
+        if (toArchive) {
+            task.checkAndComplete();
+            MyArchive.addNewTask(task);
+        } else {
+            task.checkAndComplete();
+            System.out.println("Информация: Статус задачи '" + task.getTitle() + "' изменён на выполнено.");
+        }
+    }
+
 }

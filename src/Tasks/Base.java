@@ -26,4 +26,8 @@ public class Base {
         return Objects.hash(title);
     }
 
+    //    @Override
+//    public int compareTo(Base other) {
+//        return this.title.compareTo(other.title);
+//    }
 }

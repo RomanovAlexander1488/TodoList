@@ -18,7 +18,7 @@ public class SubTask extends Base {
     @Override
     public String toString() {
         String statusMarker = isCompleted ? "[-]" : "[ ]";
-        return String.format("   └── %m %-20m (SubTask)", statusMarker, title);
+        return String.format("  |__%s %-20s (SubTask)", statusMarker, title);
     }
 }
 
