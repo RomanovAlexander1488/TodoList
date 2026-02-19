@@ -51,6 +51,10 @@ public class Main {
         System.out.println("\n====Задачи, отсортированные по статусу====");
         taskList.forEach(System.out::println);
 
+        Master chief = new Master("Настройка сервера", "Высокий", "IT");
+        chief.displayRole();
+        System.out.println(chief);
+
 //        Task myTask = new Task("Реализовать программу");
 //        SubTask s1 = new SubTask("Посадить дерево");
 //        SubTask s2 = new SubTask("Протестировать выполнение");
