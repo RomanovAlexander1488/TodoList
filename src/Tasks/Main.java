@@ -13,12 +13,10 @@ public class Main {
         myTask.addSubTask(s2);
 
         System.out.println("====Начало====");
-
         System.out.println(myTask);
 
         s1.setCompleted(true);
         s2.setCompleted(true);
-
 
         if (myTask.checkAndComplete()) {
             System.out.println("\n====После выполнения всех подзадач====");
@@ -31,9 +29,7 @@ public class Main {
         System.out.println("\n====Показ уникальности====");
         Utils.checkUniqueness(taskList);
 
-
         System.out.println("\n====Вывод диаграмм====");
-
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         Task anotherTask = new Task("Другая задача");
@@ -45,15 +41,45 @@ public class Main {
         Utils.completingTheTask(anotherTask, false);
 
         MyComparator statusComparator = new MyComparator();
-
         taskList.sort(statusComparator);
 
         System.out.println("\n====Задачи, отсортированные по статусу====");
         taskList.forEach(System.out::println);
 
-        Master chief = new Master("Настройка сервера", "Высокий", "IT");
-        chief.displayRole();
-        System.out.println(chief);
+        System.out.println("\n========== ПРОВЕРКА PERSON ==========");
+
+        Master master = new Master("M001", "Иван Петров");
+        Client client = new Client("C001", "Анна Сидорова");
+
+        System.out.println("\n--- Проверка методов Person (деньги) ---");
+        master.addMoney(5000);
+        master.removeMoney(1500);
+
+        client.addMoney(10000);
+        client.removeMoney(2500);
+
+        System.out.println("\n--- Добавление задач мастеру ---");
+        master.addTask("Ремонт розетки", "Срочно, кухня - 2000 руб.");
+        master.addTask("Заменить проводку", "Коридор - 5000 руб.");
+        master.addTask("Починить свет", "Ванная - 1500 руб.");
+        master.showTasks();
+
+        System.out.println("\n--- Выполнение задачи мастером ---");
+        master.completeTask("Ремонт розетки", 2000);
+        master.showTasks();
+
+        System.out.println("\n--- Проверка абстрактного метода doWork() ---");
+        master.doWork();
+        client.doWork();
+
+        System.out.println("\n--- Итоговое состояние ---");
+        System.out.println("Мастер: " + master.getId() + " - " + master.getName());
+        System.out.println("Клиент: " + client.getId() + " - " + client.getName());
+
+
+//        Master chief = new Master("Настройка сервера", "Высокий", "IT");
+//        chief.displayRole();
+//        System.out.println(chief);
 
 //        Task myTask = new Task("Реализовать программу");
 //        SubTask s1 = new SubTask("Посадить дерево");
