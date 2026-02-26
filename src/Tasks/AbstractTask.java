@@ -1,10 +1,10 @@
 package Tasks;
 
-public abstract class AbstractTask extends Base {
+public abstract class AbstractTask extends Person {
     protected String priority;
 
-    public AbstractTask(String title, String priority) {
-        super(title);
+    public AbstractTask(String id, String name, double initialMoney, String priority) {
+        super(id, name, initialMoney);
         this.priority = priority;
     }
 
@@ -12,5 +12,16 @@ public abstract class AbstractTask extends Base {
 
     public String getPriority() {
         return priority;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractTask{" +
+               "id='" + id + '\'' +
+               ", name='" + name + '\'' +
+               ", wallet=" + wallet +
+               ", priority='" + priority + '\'' +
+               ", tasks=" + hmTasks.size() +
+               '}';
     }
 }

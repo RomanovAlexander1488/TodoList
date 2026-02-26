@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        //реализовать третий пункт
         Task myTask = new Task("Реализовать программу");
         SubTask s1 = new SubTask("Посадить дерево");
         SubTask s2 = new SubTask("Протестировать выполнение");
@@ -46,40 +47,49 @@ public class Main {
         System.out.println("\n====Задачи, отсортированные по статусу====");
         taskList.forEach(System.out::println);
 
-        System.out.println("\n========== ПРОВЕРКА PERSON ==========");
-
-        Master master = new Master("M001", "Иван Петров");
-        Client client = new Client("C001", "Анна Сидорова");
-
-        System.out.println("\n--- Проверка методов Person (деньги) ---");
-        master.addMoney(5000);
-        master.removeMoney(1500);
-
-        client.addMoney(10000);
-        client.removeMoney(2500);
-
-        System.out.println("\n--- Добавление задач мастеру ---");
-        master.addTask("Ремонт розетки", "Срочно, кухня - 2000 руб.");
-        master.addTask("Заменить проводку", "Коридор - 5000 руб.");
-        master.addTask("Починить свет", "Ванная - 1500 руб.");
-        master.showTasks();
-
-        System.out.println("\n--- Выполнение задачи мастером ---");
-        master.completeTask("Ремонт розетки", 2000);
-        master.showTasks();
-
-        System.out.println("\n--- Проверка абстрактного метода doWork() ---");
-        master.doWork();
-        client.doWork();
-
-        System.out.println("\n--- Итоговое состояние ---");
-        System.out.println("Мастер: " + master.getId() + " - " + master.getName());
-        System.out.println("Клиент: " + client.getId() + " - " + client.getName());
-
-
 //        Master chief = new Master("Настройка сервера", "Высокий", "IT");
 //        chief.displayRole();
 //        System.out.println(chief);
+
+        System.out.println("=== Person Client ===\n");
+
+        Client client = new Client("C001", "Иван Петров", 5000);
+
+        Master master = new Master("M001", "Петр Иванов", 1000, "Высокий", "Сантехник");
+
+        client.displayRole();
+        master.displayRole();
+
+        System.out.println("\n=== Начальные балансы ===");
+        System.out.println(client.getName() + ": " + client.getWalletBalance());
+        System.out.println(master.getName() + ": " + master.getWalletBalance());
+
+        System.out.println("\n=== Добавление задач ===");
+        master.addTask("Починить кран", 1500);
+        master.addTask("Заменить трубы", 3000);
+
+        System.out.println("\n=== Оплата задачи ===");
+        client.payForTask("Починить кран", 1500, master);
+
+        System.out.println("\n=== Балансы после оплаты ===");
+        System.out.println(client.getName() + ": " + client.getWalletBalance());
+        System.out.println(master.getName() + ": " + master.getWalletBalance());
+
+        System.out.println("\n=== Попытка снять больше чем есть ===");
+        client.removeMoney(4000);
+
+        System.out.println("\n=== Задачи мастера ===");
+        master.getHmTasks().forEach((title, price) ->
+                System.out.println("Задача: " + title + ", цена: " + price));
+
+        System.out.println("\n=== Финальные данные ===");
+        System.out.println(client);
+        System.out.println(master);
+
+        // Дополнительно: показываем priority мастера
+        System.out.println("\n=== Дополнительная информация о мастере ===");
+        System.out.println("Приоритет мастера: " + master.getPriority());
+        System.out.println("Отдел мастера: " + master.getDepartment());
 
 //        Task myTask = new Task("Реализовать программу");
 //        SubTask s1 = new SubTask("Посадить дерево");
