@@ -1,5 +1,6 @@
 package Tasks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,22 +26,19 @@ public class Main {
         }
 
         Task duplicateTask = new Task("Написать код");
-        List<Task> taskList = Arrays.asList(myTask, duplicateTask, new Task("Другая задача"));
+        ArrayList<Task> taskList = new ArrayList<>(Arrays.asList(myTask, duplicateTask, new Task("Другая задача")));
 
         System.out.println("\n====Показ уникальности====");
-        Utils.checkUniqueness(taskList);
+        Utils_Task utilsTask = new Utils_Task();
+        utilsTask.Update_Task(taskList);
 
         System.out.println("\n====Вывод диаграмм====");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-        Task anotherTask = new Task("Другая задача");
-        Utils.completingTheTask(anotherTask, false);
-
         taskList.sort(new MyComparator());
 
-        Utils.completingTheTask(myTask, true);
-        Utils.completingTheTask(anotherTask, false);
 
+       utilsTask.Update_Task(taskList);
         MyComparator statusComparator = new MyComparator();
         taskList.sort(statusComparator);
 
