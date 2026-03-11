@@ -6,16 +6,21 @@ import java.util.List;
 public class Task extends Base {
     private final ArrayList<SubTask> subTasks = new ArrayList<>();
     private Status status = Status.NEW;
+    private double price;
 
-    public Task(String title) {
+    public Task(String title, double price) {
         super(title);
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     @Override
     public String toString() {
-        return "Основная задача: " + title + "\n" +
-               "Статус: " + status + "\n" +
-               "Дочерних задач: " + subTasks.size();
+        return String.format("Задача: %-20s | Цена: %8.2f | Статус: %s | Подзадач: %d",
+                title, price, status, subTasks.size());
     }
 
     public void addSubTask(SubTask sub) {
@@ -33,16 +38,9 @@ public class Task extends Base {
 
     public boolean checkAndComplete() {
         if (subTasks.isEmpty()) return false;
-
         boolean allDone = subTasks.stream().allMatch(SubTask::isCompleted);
-
-        if (allDone) {
-            this.status = Status.DONE;
-            return true;
-        } else {
-            this.status = Status.IN_PROGRESS;
-            return false;
-        }
+        this.status = allDone ? Status.DONE : Status.IN_PROGRESS;
+        return allDone;
     }
 
     public ArrayList<SubTask> getSubTasks() {

@@ -2,12 +2,13 @@ package Tasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        //реализовать третий пункт
-        Task myTask = new Task("Реализовать программу");
+        Task myTask = new Task("Реализовать программу", 2500.0);
         SubTask s1 = new SubTask("Посадить дерево");
         SubTask s2 = new SubTask("Протестировать выполнение");
 
@@ -25,8 +26,35 @@ public class Main {
             System.out.println("Сделано! " + myTask);
         }
 
-        Task duplicateTask = new Task("Написать код");
-        ArrayList<Task> taskList = new ArrayList<>(Arrays.asList(myTask, duplicateTask, new Task("Другая задача")));
+        Task duplicateTask = new Task("Написать код", 1500.0);
+        Task anotherTask = new Task("Другая задача", 500.0);
+        Task expensiveTask = new Task("Деплой сервера", 5000.0);
+
+        ArrayList<Task> taskList = new ArrayList<>(Arrays.asList(myTask, duplicateTask, anotherTask, expensiveTask));
+
+        System.out.println("\n==== Сортировка задач по цене (от дешевых к дорогим) ====");
+
+        List<Task> sortedTasks = taskList.stream()
+                .sorted((t1, t2) -> Double.compare(t1.getPrice(), t2.getPrice()))
+                .collect(Collectors.toList());
+
+        Iterator<Task> iterator = sortedTasks.iterator();
+        while (iterator.hasNext()) {
+            Task t = iterator.next();
+            System.out.println(t.getTitle() + " - Цена: " + t.getPrice());
+        }
+
+        Task maxTask = taskList.stream()
+                .max((t1, t2) -> Double.compare(t1.getPrice(), t2.getPrice()))
+                .orElse(null);
+
+        Task minTask = taskList.stream()
+                .min((t1, t2) -> Double.compare(t1.getPrice(), t2.getPrice()))
+                .orElse(null);
+
+        System.out.println("\nСамая дорогая задача: " + (maxTask != null ? maxTask.getTitle() : "Нет"));
+        System.out.println("Самая дешевая задача: " + (minTask != null ? minTask.getTitle() : "Нет"));
+
 
         System.out.println("\n====Показ уникальности====");
         Utils_Task utilsTask = new Utils_Task();
@@ -36,23 +64,12 @@ public class Main {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         taskList.sort(new MyComparator());
-
-
-       utilsTask.Update_Task(taskList);
-        MyComparator statusComparator = new MyComparator();
-        taskList.sort(statusComparator);
-
         System.out.println("\n====Задачи, отсортированные по статусу====");
         taskList.forEach(System.out::println);
 
-//        Master chief = new Master("Настройка сервера", "Высокий", "IT");
-//        chief.displayRole();
-//        System.out.println(chief);
-
-        System.out.println("=== Person Client ===\n");
+        System.out.println("\n=== Person Client ===\n");
 
         Client client = new Client("C001", "Иван Петров", 5000);
-
         Master master = new Master("M001", "Петр Иванов", 1000, "Высокий", "Сантехник");
 
         client.displayRole();
@@ -84,7 +101,6 @@ public class Main {
         System.out.println(client);
         System.out.println(master);
 
-        // Дополнительно: показываем priority мастера
         System.out.println("\n=== Дополнительная информация о мастере ===");
         System.out.println("Приоритет мастера: " + master.getPriority());
         System.out.println("Отдел мастера: " + master.getDepartment());
