@@ -1,4 +1,5 @@
 package Interfes;
 
-public interface Finansable {
+public interface Finansable extends  AddMoney,SpendMoney  {
+
 }

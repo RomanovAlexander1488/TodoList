@@ -1,8 +1,9 @@
 package Tasks;
 
 import Interfes.AddMoney;
+import Interfes.Finansable;
 
-public class Master extends AbstractTask implements AddMoney {
+public class Master extends AbstractTask implements Finansable {
     private String department;
 
     public Master(String id, String name, double initialMoney, String priority, String department) {
@@ -53,5 +54,10 @@ public class Master extends AbstractTask implements AddMoney {
                ", department='" + department + '\'' +
                ", tasks=" + hmTasks.size() +
                '}';
+    }
+
+    @Override
+    public boolean removeMoney(double amount) {
+        return false;
     }
 }

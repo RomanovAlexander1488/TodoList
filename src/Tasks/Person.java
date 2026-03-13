@@ -16,10 +16,6 @@ public abstract class Person {
         this.hmTasks = new HashMap<>();
     }
 
-
-
-
-
     public void addTask(String taskTitle, double price) {
         hmTasks.put(taskTitle, price);
         System.out.println("Задача '" + taskTitle + "' с ценой " + price + " добавлена для " + name);

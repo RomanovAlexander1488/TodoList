@@ -1,5 +1,5 @@
 package Tasks;
-
+//изминил Finansable, добавил try catch
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -83,8 +83,25 @@ public class Main {
         master.addTask("Починить кран", 1500);
         master.addTask("Заменить трубы", 3000);
 
-        System.out.println("\n=== Оплата задачи ===");
-        client.payForTask("Починить кран", 1500, master);
+        System.out.println("\n=== Обработка оплаты задачи (Try-Catch) ===");
+        try {
+            String taskTitle = "Починить кран";
+            double taskPrice = 1500;
+
+            if (!myTask.checkAndComplete()) {
+                throw new Exception("Ошибка: Задача '" + myTask.getTitle() + "' еще не завершена!");
+            }
+
+            if (client.getWalletBalance() < taskPrice) {
+                throw new Exception("Ошибка: Недостаточно средств! Баланс: " + client.getWalletBalance() + ", Нужно: " + taskPrice);
+            }
+
+            client.payForTask(taskTitle, taskPrice, master);
+            System.out.println("Транзакция прошла успешно.");
+
+        } catch (Exception e) {
+            System.err.println("ОШИКБА ОПЛАТЫ: " + e.getMessage());
+        }
 
         System.out.println("\n=== Балансы после оплаты ===");
         System.out.println(client.getName() + ": " + client.getWalletBalance());

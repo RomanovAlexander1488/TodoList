@@ -1,9 +1,10 @@
 package Tasks;
 
 import Interfes.AddMoney;
+import Interfes.Finansable;
 import Interfes.SpendMoney;
 
-public class Client extends Person implements SpendMoney {
+public class Client extends Person implements Finansable {
 
     public Client(String id, String name, double initialMoney) {
         super(id, name, initialMoney);
@@ -45,5 +46,10 @@ public class Client extends Person implements SpendMoney {
             System.out.println(name + " недостаточно средств! Баланс: " + wallet + ", требуется: " + amount);
             return false;
         }
+    }
+
+    @Override
+    public void addMoney(double amount) {
+
     }
 }
